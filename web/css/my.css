@@ -1,9 +1,0 @@
-label {
-    display: inline-block;
-}
-
-@media screen and (max-width: 768px) {
-    label {
-        display: block;
-    }
-}
