@@ -70,6 +70,7 @@ public class createUser extends HttpServlet {
                 Map<String, String> map = getUserMsg.getUsername(uid, gh);
                 User user = new User(uid, gh, map.get("name"), map.get("phone"), in, email);
                 Create.create(user); // 创建用户
+
                 SendMail.send(email, map.get("name"), 0);
 //                SendSuccessSms.sendSms(user.getName(), user.getPhone());
                 SimpleDateFormat sdf = new SimpleDateFormat("HH");

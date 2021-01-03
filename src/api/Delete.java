@@ -28,6 +28,7 @@ public class Delete extends HttpServlet {
         response.setContentType("application/json; charset=utf-8");
         String s = request.getReader().readLine();
         Map map = (Map) JSONObject.parse(s);
+        System.out.println("map = " + map);
         String gh = (String) map.get("gh");
 
         if ((gh == null || gh.length() == 0) || (gh.length() == 10 && Integer.parseInt(gh.substring(0, 2)) >= 16)){
@@ -41,10 +42,23 @@ public class Delete extends HttpServlet {
 //            response.sendRedirect("/failedGh.html");
         } else {
             JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDatasource());
+
+            // 获取用户名和email
+            Map<String, Object> userMap = template.queryForMap("select * from user where gh = ?", gh);
+//            System.out.println("userMap = " + userMap);
+//            System.out.println("name = " + userMap.get("name"));
+            String userName = userMap.get("name").toString();
+            String userEmail = userMap.get("email").toString();
+
             int count = template.update("delete from user where gh = ?", gh);
             if(count >= 1){
+
                 template.update("insert into logs values(?, ?, ?)", "学号:" + gh, "删除成功", new Date());
                 response.setStatus(200);
+
+                // send mail --> 删除成功
+                SendMail.send(userEmail, userName, 2);
+
                 ResultUtil resultUtil = new ResultUtil();
                 resultUtil.setCode(1000);
                 resultUtil.setSuccess(true);
@@ -54,6 +68,7 @@ public class Delete extends HttpServlet {
 
 //                response.sendRedirect("/deleteSuccess.html");
             } else {
+
                 template.update("insert into logs values(?, ?, ?)", "学号:" + gh, "删除失败", new Date());
                 response.setStatus(200);
                 ResultUtil resultUtil = new ResultUtil();

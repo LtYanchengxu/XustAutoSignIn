@@ -1,8 +1,12 @@
 package mail;
 
+import org.junit.Test;
+import sun.reflect.generics.tree.VoidDescriptor;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
@@ -13,7 +17,9 @@ import java.util.Properties;
 
 public class SendMail {
     private static String myEmailAccount = "xust_jkdk@163.com";  // 发件人邮箱
-    private static String myEmailPassword = "SBMMBSAHCMPDUOWC";  // 发件人授权码
+    private static String myEmailPassword = "PYONDPUCBUOVNOMD";  // 发件人授权码
+
+    // 测试
     private static String myEmailSMTPHost = "smtp.163.com";
 //    public static String receiveMailAccount = "wangzihan_xust@163.com";
 
@@ -67,7 +73,7 @@ public class SendMail {
     // 内容
     private static final String[] MESSAGES = {
             "打卡任务添加成功！本系统已启用邮件通知服务，打卡失败会邮件通知，请放心使用！",
-            "今天的打卡任务失败了，请您手动打卡，谢谢！",
+            "今天的打卡任务<font color = 'red'>失败</font>了，请您手动打卡，谢谢！",
             "打卡任务删除成功！有缘再见！"
     };
 
@@ -92,11 +98,28 @@ public class SendMail {
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, name, "UTF-8"));
 
+        // 抄送给自己
+//        InternetAddress[] internetAddressCC = new InternetAddress().parse(myEmailAccount);
+//        message.setRecipients(Message.RecipientType.CC, internetAddressCC);
+
+        long currentTimeMillis = System.currentTimeMillis();
+        String s = String.valueOf(currentTimeMillis);
+
         // 4. Subject: 邮件主题
         message.setSubject(SUBJECTS[type], "UTF-8");
+//        message.setSubject("通知" + s, "UTF-8");
+
+        // 时间戳
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format1 = sdf1.format(new Date());
 
         // 5. Content: 邮件正文（可以使用html标签）
-        message.setContent(MESSAGES[type], "text/html;charset=UTF-8");
+        message.setContent("【"+ format1 +"】" + MESSAGES[type], "text/html;charset=UTF-8");
+//        message.setContent("明天不上课" + s, "text/html;charset=UTF-8");
+
+
+
+
         // 6. 设置发件时间
         message.setSentDate(new Date());
 
@@ -106,5 +129,13 @@ public class SendMail {
         return message;
     }
 
+
+    @Test
+    public void testMail() {
+
+//
+
+
+    }
 
 }
