@@ -118,8 +118,6 @@ public class SendMail {
 //        message.setContent("明天不上课" + s, "text/html;charset=UTF-8");
 
 
-
-
         // 6. 设置发件时间
         message.setSentDate(new Date());
 
@@ -130,12 +128,5 @@ public class SendMail {
     }
 
 
-    @Test
-    public void testMail() {
-
-//
-
-
-    }
 
 }
