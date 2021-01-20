@@ -1,0 +1,77 @@
+#+OPTIONS: toc:nil
+
+* 通用
+** Ping
+- 接口地址: GET =/api/ping=
+- 请求结果 (*application/plain*)
+  #+begin_quote
+  Pong
+  #+end_quote
+
+** 获取验证码
+- 接口地址: GET =/api/verifyCode=
+- 请求参数
+  - Query
+    |-------+--------+------+----------|
+    | field | type   | Null | descript |
+    |-------+--------+------+----------|
+    | sno   | string | NO   | 学号     |
+    | email | string | NO   | 邮箱     |
+    |-------+--------+------+----------|
+- 请求结果 (*application/json*)
+    |-----------+--------+------+----------|
+    | field     | type   | Null | descript |
+    |-----------+--------+------+----------|
+    | code      | int32  | NO   | 状态码   |
+    | message   | string | NO   | 操作消息 |
+    | isSuccess | bool   | NO   | 是否成功 |
+    |-----------+--------+------+----------|
+
+
+
+* XUST
+** 添加用户
+- 接口地址: PUT =/api/xust/user=
+- 请求参数
+  - Header
+    - Content-Type: *application/json*
+  - Body
+    |------------+--------+------+----------|
+    | field      | type   | Null | descript |
+    |------------+--------+------+----------|
+    | url        | string | NO   | URL      |
+    | sno        | string | NO   | 学号     |
+    | email      | string | NO   | 邮箱     |
+    | time       | int32  | NO   | 签到次数 |
+    | verifyCode | string | NO   | 验证码   |
+    |------------+--------+------+----------|
+- 请求结果 (*application/json*)
+    |-----------+--------+------+----------|
+    | field     | type   | Null | descript |
+    |-----------+--------+------+----------|
+    | code      | int32  | NO   | 状态码   |
+    | message   | string | NO   | 操作消息 |
+    | isSuccess | bool   | NO   | 是否成功 |
+    |-----------+--------+------+----------|
+
+** 删除用户
+- 接口地址: DELETE =/api/xust/user=
+- 请求参数
+  - Header
+    - Content-Type: *application/json*
+  - Body
+    |------------+--------+------+----------|
+    | field      | type   | Null | descript |
+    |------------+--------+------+----------|
+    | sno        | string | NO   | 学号     |
+    | email      | string | NO   | 邮箱     |
+    | verifyCode | string | NO   | 验证码   |
+    |------------+--------+------+----------|
+- 请求结果 (*application/json*)
+    |-----------+--------+------+----------|
+    | field     | type   | Null | descript |
+    |-----------+--------+------+----------|
+    | code      | int32  | NO   | 状态码   |
+    | message   | string | NO   | 操作消息 |
+    | isSuccess | bool   | NO   | 是否成功 |
+    |-----------+--------+------+----------|

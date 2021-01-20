@@ -1,0 +1,82 @@
+#+OPTIONS: toc:nil
+
+配置文件采用 yaml 格式，分为3大部分，以及一个监听端口 port
+
+- port: 监听端口，服务所占用的端口号，可为空，默认监听 8080
+
+* 数据库
+数据库是由database配置，不可为空
+
+- type: 数据库类型，支持 MySQL (mysql)、PostgreSQL (pgsql) 以及 SQLite (sqlite)
+- host: 数据库地址，sqlite则填写文件名，否则填写IP地址
+- port: 数据库端口，可为空，默认为 3306 (mysql) 或 5432 (pgsql)
+- user: 数据库用户，可为空，默认为 root
+- password: 数据库密码，可为空
+- name: 数据库名称, 可为空，默认为 test
+
+* 邮箱
+邮箱是由email配置，不可为空
+
+- host: SMTP服务器地址
+- port: SMTP服务器端口，可为空，默认为 25
+- account: SMTP用户
+- password: SMTP密码
+- username: 发送邮件所展示的昵称
+- from: 发送邮件所展示的邮箱，必须是SMTP账户所属邮箱
+- starttls: 开启 starttls 协议，默认关闭
+- ssl: 开启 ssl 协议，默认关闭
+
+* 日志
+日志是由log配置，可为空，为空时日志输出到终端
+
+- enabled: 是否开启日志，默认关闭，开启后日志输出到指定文件，否则输出到终端
+- level: 输出日志的等级，可选选项: info、warn、error
+- path: 输出日志的路径，将日志输出到指定文件
+
+* 示例
+** 示例1
+#+begin_src yaml
+port: 8080
+
+database:
+  type: mysql
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: password
+  name: test
+
+email:
+  host: mail.qq.com
+  port: 465
+  account: 11111@qq.com
+  password: password
+  username: Master
+  from: i@qq.com
+  starttls: false
+  ssl: true
+
+log:
+  enabled: true
+  level: info
+  path: /home/auto/auto_signin.log
+#+end_src
+
+** 示例2
+#+begin_src yaml
+port: 18080
+
+database:
+  type: pgsql
+  host: 10.100.100.70
+  user: root
+  password: password
+  name: AutoSignIn
+
+email:
+  host: mail.qq.com
+  account: root@qq.com
+  password: password
+  username: Master
+  from: i@qq.com
+#+end_src
