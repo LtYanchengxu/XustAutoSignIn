@@ -16,12 +16,12 @@ import java.util.Properties;
  */
 
 public class SendMail {
-    private static String myEmailAccount = "xust_jkdk@163.com";  // 发件人邮箱
-    private static String myEmailPassword = "PYONDPUCBUOVNOMD";  // 发件人授权码
+    private static String myEmailAccount = "example@163.com";  // 发件人邮箱
+    private static String myEmailPassword = "example";  // 发件人授权码
 
     // 测试
     private static String myEmailSMTPHost = "smtp.163.com";
-//    public static String receiveMailAccount = "wangzihan_xust@163.com";
+//    public static String receiveMailAccount = "example@163.com";
 
     public static void send(String receiveMailAccount, String name, int type) {
         Transport transport = null;
