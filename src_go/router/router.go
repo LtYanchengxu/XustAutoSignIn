@@ -21,7 +21,7 @@ func Run() {
 		variable.Cron.AddFunc("0 45 17 * * ?", utils.XustSignInNight)
 		variable.Cron.Start()
 		// init server
-		gin.SetMode(gin.DebugMode)
+		gin.SetMode(gin.ReleaseMode)
 		variable.Engine = gin.Default()
 		// middleware
 		// api
