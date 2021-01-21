@@ -2,13 +2,11 @@ package router
 
 import "XustAutoSignIn/variable"
 
-func initApiRouter() {
+func baseApiRouter() {
 	// Ping: GET /api/ping
 	variable.Engine.GET("/api/ping", Ping)
 	// Get Verify Code: GET /api/verifyCode
 	variable.Engine.GET("/api/verifyCode", VerificationCode)
-	// XUST Auto SignIn API
-	xustAutoSignInApi()
 }
 
 func xustAutoSignInApi() {

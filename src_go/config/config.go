@@ -15,10 +15,11 @@ import (
 )
 
 type Config struct {
-	Port     int       `yaml:"port,omitempty"` // 服务器端口号，默认8080
-	Database *database `yaml:"database"`       // 数据库配置
-	Email    *email    `yaml:"email"`          // 邮箱服务配置
-	Log      *log      `yaml:"log,omitempty"`  // 日志
+	Port           int       `yaml:"port,omitempty"`           // 服务器端口号，默认8080
+	XustAutoSignIn bool      `yaml:"xustAutoSignIn,omitempty"` // 西科大自动打卡开关，默认false
+	Database       *database `yaml:"database"`                 // 数据库配置
+	Email          *email    `yaml:"email"`                    // 邮箱服务配置
+	Log            *log      `yaml:"log,omitempty"`            // 日志
 }
 
 func GetConfig() *Config {

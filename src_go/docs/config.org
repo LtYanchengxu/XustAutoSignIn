@@ -1,8 +1,11 @@
 #+OPTIONS: toc:nil
 
-配置文件采用 yaml 格式，分为3大部分，以及一个监听端口 port
+配置文件采用 yaml 格式，分为3大部分
+
+全局配置控制基本的信息，如监听端口、开启打卡等内容
 
 - port: 监听端口，服务所占用的端口号，可为空，默认监听 8080
+- xustAutoSignIn: 西科大自动打卡开关，可为空，默认关闭
 
 * 数据库
 数据库是由database配置，不可为空
@@ -37,6 +40,7 @@
 ** 示例1
 #+begin_src yaml
 port: 8080
+xustAutoSignIn: true
 
 database:
   type: mysql
@@ -65,6 +69,7 @@ log:
 ** 示例2
 #+begin_src yaml
 port: 18080
+xustAutoSignIn: true
 
 database:
   type: pgsql
