@@ -13,6 +13,11 @@ import (
 
 var runServer sync.Once
 
+const (
+	afternoonSignInCronString = "0 30 11 * * ?"
+	nightSignInCronString = "0 30 17 * * ?"
+)
+
 func Run() {
 	runServer.Do(func() {
 		cfg := config.GetConfig()
@@ -24,8 +29,8 @@ func Run() {
 		baseApiRouter()
 		if cfg.XustAutoSignIn {
 			xustAutoSignInApi()
-			variable.Cron.AddFunc("0 45 11 * * ?", utils.XustSignInAfternoon)
-			variable.Cron.AddFunc("0 45 17 * * ?", utils.XustSignInNight)
+			variable.Cron.AddFunc(afternoonSignInCronString, utils.XustSignInAfternoon)
+			variable.Cron.AddFunc(nightSignInCronString, utils.XustSignInNight)
 		}
 		// run
 		variable.Cron.Start()
