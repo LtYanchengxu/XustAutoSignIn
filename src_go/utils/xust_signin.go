@@ -181,6 +181,7 @@ func XustSignInAfternoon() {
 			if err != nil {
 				continue
 			}
+			break
 		}
 		if err != nil {
 			logger.Error(err.Error())
@@ -223,6 +224,7 @@ func XustSignInNight() {
 			if err != nil {
 				continue
 			}
+			break
 		}
 		if err != nil {
 			logger.Error(err.Error())
