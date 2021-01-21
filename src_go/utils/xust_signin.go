@@ -70,6 +70,7 @@ func getXustSigninInfo(uid, sno, cookie string, userAgentId int) (map[string]jso
 	}
 	var list []json.RawMessage
 	_ = json.Unmarshal(obj["list"], &list)
+	obj = make(map[string]json.RawMessage)
 	_ = json.Unmarshal(list[0], &obj)
 	return obj, nil
 }
@@ -104,8 +105,12 @@ func getXustSignInRequestDate(info map[string]json.RawMessage, tag int) []byte {
 	delete(info, "XXDZ4_1")
 	delete(info, "ID")
 	delete(info, "PROCINSTID")
+	obj := make(map[string]json.RawMessage)
+	for k, v := range info {
+		obj[strings.ToLower(k)] = v
+	}
+	tmpBytes, _ = json.Marshal(&obj)
 	post := make(map[string]json.RawMessage)
-	tmpBytes, _ = json.Marshal(&info)
 	post["xkdjkdk"] = json.RawMessage(tmpBytes)
 	tmpBytes, _ = json.Marshal(post)
 	return tmpBytes
@@ -165,24 +170,26 @@ func XustSignInAfternoon() {
 	for _, user := range results {
 		logger := logger.With(zap.String("Sno", user.Sno))
 		userAgentId := rand.Int() % len(variable.UserAgents)
-		var cookie string
 		var info map[string]json.RawMessage
-		var err error
-		for i := 3; i > 0; i-- {
-			cookie, err = getXustCookie(user.Uid, userAgentId)
-			if err != nil {
-				continue
-			}
-			info, err = getXustSigninInfo(user.Uid, user.Sno, cookie, userAgentId)
-			if err != nil {
-				continue
-			}
-			err = xustSignIn(user.Uid, cookie, userAgentId, getXustSignInRequestDate(info, XUST_AFTERNOON))
-			if err != nil {
-				continue
-			}
-			break
+		var body []byte
+		cookie, err := getXustCookie(user.Uid, userAgentId)
+		if err != nil {
+			goto NEXT_USER
 		}
+		info, err = getXustSigninInfo(user.Uid, user.Sno, cookie, userAgentId)
+		if err != nil {
+			goto NEXT_USER
+		}
+		body = getXustSignInRequestDate(info, XUST_AFTERNOON)
+		for i := 3; i > 0; i-- {
+			err = xustSignIn(user.Uid, cookie, userAgentId, body)
+			if err != nil {
+				continue
+			}
+			goto NEXT_USER
+		}
+	NEXT_USER:
+		logger.Info(string(body))
 		if err != nil {
 			logger.Error(err.Error())
 			err = SendEmail(
@@ -208,24 +215,26 @@ func XustSignInNight() {
 	for _, user := range results {
 		logger := logger.With(zap.String("Sno", user.Sno))
 		userAgentId := rand.Int() % len(variable.UserAgents)
-		var cookie string
 		var info map[string]json.RawMessage
-		var err error
-		for i := 3; i > 0; i-- {
-			cookie, err = getXustCookie(user.Uid, userAgentId)
-			if err != nil {
-				continue
-			}
-			info, err = getXustSigninInfo(user.Uid, user.Sno, cookie, userAgentId)
-			if err != nil {
-				continue
-			}
-			err = xustSignIn(user.Uid, cookie, userAgentId, getXustSignInRequestDate(info, XUST_NIGHT))
-			if err != nil {
-				continue
-			}
-			break
+		var body []byte
+		cookie, err := getXustCookie(user.Uid, userAgentId)
+		if err != nil {
+			goto NEXT_USER
 		}
+		info, err = getXustSigninInfo(user.Uid, user.Sno, cookie, userAgentId)
+		if err != nil {
+			goto NEXT_USER
+		}
+		body = getXustSignInRequestDate(info, XUST_NIGHT)
+		for i := 3; i > 0; i-- {
+			err = xustSignIn(user.Uid, cookie, userAgentId, body)
+			if err != nil {
+				continue
+			}
+			goto NEXT_USER
+		}
+	NEXT_USER:
+		logger.Info(string(body))
 		if err != nil {
 			logger.Error(err.Error())
 			err = SendEmail(
