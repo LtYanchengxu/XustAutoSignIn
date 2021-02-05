@@ -7,6 +7,13 @@
 
 测试网站：http://39.99.143.132:8080
 
+
+---
+Update on 2021-02-05
+
+0. [Ginshio](https://github.com/GinShio)增加GoLang版本
+
+
 ---
 
 Update on 2021-01-19
