@@ -5,8 +5,13 @@
 
 ~~测试网站:https://xust.hangcc.cn/~~
 
-测试网站：http://39.99.143.132:8080
+~~测试网站：https://xust.yanchengxu.top~~
 
+---
+Update on 2021-06-30
+
+0. **毕业快乐！**
+1. `yanchengxu`于2021-06-30停止维护此项目
 
 ---
 Update on 2021-02-05
