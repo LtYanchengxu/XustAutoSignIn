@@ -1,8 +1,9 @@
 /*
 SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.5.40 : Database - xust
+MySQL - 5.5.62-log : Database - xust
 *********************************************************************
 */
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -32,13 +33,12 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `uid` varchar(255) DEFAULT NULL,
-  `gh` varchar(50) DEFAULT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `in` varchar(15) DEFAULT NULL
+  `gh` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `in` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
